@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from tqdm.notebook import tqdm
 
 # 定数の定義
+# TODO フロントを用いてfrom toを調整できるようにしたい 優先度:低
 FLOM_ = "2024-01"
 TO_ = "2024-10"
 LOOP_MINUTE = 1
@@ -59,6 +60,7 @@ def scrape_kaisai_date(from_, to_):
         soup = BeautifulSoup(html)
         a_tag_list = soup.find("table", class_="Calendar_Table").find_all("a")
         for a in a_tag_list:
+            # TODO XPATHで取得するようにしたい　優先度:中
             a_tag_info = re.findall(r"kaisai_date=(\d{8})", a["href"])[0]
             kaisai_date_list.append(a_tag_info)
         time.sleep(LOOP_MINUTE)

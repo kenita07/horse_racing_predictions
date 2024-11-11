@@ -21,7 +21,11 @@ from chrome_setting import get_chrome_driver
 logger = setup_logger(__name__)
 
 # 定数の定義
+# TODO フロントを用いてfrom toを調整できるようにしたい 優先度:低
+FLOM_ = "2024-01"
+TO_ = "2024-10"
 URL_TMPLATE = "https://race.netkeiba.com/top/race_list.html?kaisai_date={kaisai_date}"
+LOOP_MINUTE = 1
 
 
 def scrape_race_id_list(kaisai_date_list: list[str]):
@@ -30,7 +34,7 @@ def scrape_race_id_list(kaisai_date_list: list[str]):
 
     この関数は、与えられた開催日リスト（kaisai_date_list）に従い、`netkeiba`のレースページから
     各レースのIDをスクレイピングします。指定されていない場合は、デフォルトで2024年1月から
-    2024年12月までの開催日リストを取得する。
+    2024年10月までの開催日リストを取得する。
 
     Parameters:
     kaisai_date_list (list of str): レースの開催日を表す文字列のリスト。
@@ -42,18 +46,17 @@ def scrape_race_id_list(kaisai_date_list: list[str]):
     """
     # kaisai_date_listが渡されていない場合は、デフォルトで日付リストを取得
     if not kaisai_date_list:
-        kaisai_date_list = get_race_date.scrape_kaisai_date(
-            from_="2024-01", to_="2024-12"
-        )
+        kaisai_date_list = get_race_date.scrape_kaisai_date(from_=FLOM_, to_=TO_)
         logger.info(f"取得した開催日リスト: {kaisai_date_list}")
-    kaisai_date_list = get_race_date.scrape_kaisai_date(from_="2024-01", to_="2024-12")
+    kaisai_date_list = get_race_date.scrape_kaisai_date(from_=FLOM_, to_=TO_)
     race_id_list = []
     with get_chrome_driver(headless=True) as driver:
         for kaisai_date in tqdm(kaisai_date_list):
             url = URL_TMPLATE.format(kaisai_date=kaisai_date)
             try:
                 driver.get(url)
-                time.sleep(1)
+                time.sleep(LOOP_MINUTE)
+                # TODO XPATHで取得するようにしたい　優先度:中
                 li_list = driver.find_elements(By.CLASS_NAME, "RaceList_DataItem")
                 for li in li_list:
                     href = li.find_element(By.TAG_NAME, "a").get_attribute("href")
