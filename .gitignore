@@ -3,5 +3,6 @@ __pycache__/
 *.pyo
 .ipynb_checkpoints/
 keiba_yosou.code-workspace
-*.pickle
-*ipynb
+.pickle
+.vscode
+*bin
