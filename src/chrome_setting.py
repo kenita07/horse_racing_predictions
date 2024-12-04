@@ -25,9 +25,12 @@ def get_chrome_driver(headless: bool = True):
     if headless:
         chrome_options.add_argument("--headless")  # ヘッドレスモードを有効にする
     chrome_options.add_argument("--disable-gpu")  # GPUを無効にする（特にWindowsで推奨）
-    chrome_options.add_argument(
-        "--no-sandbox"
-    )  # サンドボックスモードを無効にする（Linuxで推奨）
+    # chrome_options.add_argument(
+    #     "--no-sandbox"
+    # )  # サンドボックスモードを無効にする（Linuxで推奨）
+
+    # USB: usb_service_win.cc:105 SetupDiGetDevicePropertyのエラー非表示
+    chrome_options.add_experimental_option("excludeSwitches", ["enable-logging"])
 
     # Chromeドライバーパスを取得
     chromedriver_path = ChromeDriverManager().install()
