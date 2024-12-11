@@ -5,6 +5,7 @@ import sys
 import time
 import warnings
 from urllib.request import Request, urlopen
+import ast
 
 # 外部ライブラリ
 from bs4 import BeautifulSoup
@@ -25,14 +26,8 @@ from logger_setting import setup_logger
 from chrome_setting import get_chrome_driver
 from mapping import MappingLoader
 
-# pandas worning非表示設定
-"""
-warning箇所
-# 有効な<table>をHTML文字列に変換して、pd.read_htmlに渡す
-dfs = pd.read_html(str(valid_tables))
-"""
+# pandas warning非表示設定
 warnings.simplefilter("ignore", FutureWarning)
-
 
 # ロガーの取得
 logger = setup_logger(__name__)
@@ -86,6 +81,8 @@ COLUMN_GROUND_STATE = "ground_state"
 COLUMN_RANK_DIFF = "rank_diff"
 COLUMN_PRIZE = "prize"
 COLUMN_RACE_CLASS = "race_class"
+COLUMN_AROUND = "around"
+COLUMN_PLACE = "place"
 
 HORSE_ID_LENGTH = 10
 JOCKEY_ID_LENGTH = 5
@@ -106,8 +103,21 @@ RESULT_PICKLE = "result_data_from202401_to202411.pickle"
 ERROR_NO_VALID_TABLE = "HTMLドキュメントに有効な<table>要素が見つかりませんでした。"
 ERROR_UNEXPECTED = "予期せぬエラーが発生しました。"
 ERROR_INVALID_URL = "無効なURLが指定されました。"
+ERROR_TITLE = "対象外のタイトルです。"
+
+RACE_INFO_CSV = "race_info.csv"
+RACE_INFO_TRANSFORMED = "race_info_transformed.csv"
+RACE_INFO_PREPROCESSING = "race_info_preprocessing.csv"
+
+# 正規表現パターン
+RACE_TYPE_PATTERN = r"(芝|ダ|障)"
+AROUND_PATTERN = r"(右|左)"
+CORCE_LEN_PATTERN = r"(\d+)m"
+GROUND_STATE_PATTERN = r"(芝|ダート|障):(.+)"
+PLACE_D_PATTERN = r"(\d+回(\w+)\d{1,2}日目)"
+PLACE_DD_PATTERN = r"([^\d]+)(\d{1})?"
+DATE_PATTERN = r"\d{4}年\d{1,2}月\d{1,2}日"
 
 # mappingファイル読み込み
 mapping_loader = MappingLoader(mapping_dir=Path(__file__).parent.parent / "mapping")
-
 mapping_loader.load_all_mappings()

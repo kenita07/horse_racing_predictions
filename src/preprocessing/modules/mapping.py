@@ -17,6 +17,9 @@ class MappingLoader:
         self.RACE_TYPE_MAPPING = {}
         self.GROUND_STATE_MAPPING = {}
         self.RACE_CLASS_MAPPING = {}
+        self.AROUND_MAPPING = {}
+        self.RACE_CLASS_INFO_MAPPING = {}
+        self.PLACE_MAPPING = {}
 
     def load_mapping(self, mapping_name: str):
         """
@@ -51,6 +54,9 @@ class MappingLoader:
         self.RACE_TYPE_MAPPING = self.load_mapping("race_type")
         self.GROUND_STATE_MAPPING = self.load_mapping("ground_state")
         self.RACE_CLASS_MAPPING = self.load_mapping("race_class")
+        self.AROUND_MAPPING = self.load_mapping("around")
+        self.RACE_CLASS_INFO_MAPPING = self.load_mapping("race_class_info")
+        self.PLACE_MAPPING = self.load_mapping("place")
 
     def get_sex_mapping(self):
         return self.SEX_MAPPING
@@ -66,6 +72,15 @@ class MappingLoader:
 
     def get_race_class_mapping(self):
         return self.RACE_CLASS_MAPPING
+
+    def get_around_mapping(self):
+        return self.AROUND_MAPPING
+
+    def get_race_class_info_mapping(self):
+        return self.RACE_CLASS_INFO_MAPPING
+
+    def get_place_mapping(self):
+        return self.PLACE_MAPPING
 
 
 # 使用
