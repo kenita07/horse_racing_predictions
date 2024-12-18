@@ -1,13 +1,10 @@
 from src.preprocessing.modules.get_raw_data import get_raw_data
 from src.preprocessing.modules.preprocessing_proc import preprocessing
 from src.preprocessing.modules.create_race_info import create_race_info
-from src.preprocessing.modules.create_race_info import (
-    create_race_info_transformed,
-)
+from src.preprocessing.modules.create_race_info import create_race_info_transformed
 from src.preprocessing.modules.create_race_info import (
     create_race_info_preprocessing,
 )
-from src.preprocessing.modules.feature_setting import FeatureCreator
 
 if __name__ == "__main__":
     """
@@ -27,6 +24,3 @@ if __name__ == "__main__":
     create_race_info()
     create_race_info_transformed()
     create_race_info_preprocessing()
-
-    fc = FeatureCreator()
-    print(fc)

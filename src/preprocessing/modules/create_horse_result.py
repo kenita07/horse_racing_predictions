@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def create_horse_result(html_paths):
@@ -37,5 +37,5 @@ def create_horse_result(html_paths):
     concat_df.index.name = COLUMN_HORSE_ID
     concat_df.columns = concat_df.columns.str.replace(" ", "")
     SAVE_DIR.mkdir(parents=True, exist_ok=True)
-    concat_df.to_csv(SAVE_DIR / RAWDF_HORSE_FILE_NAME, sep="\t")
+    concat_df.to_csv(SAVE_DIR / RAWDF_HORSE_FILE_NAME_CSV, sep="\t")
     return concat_df

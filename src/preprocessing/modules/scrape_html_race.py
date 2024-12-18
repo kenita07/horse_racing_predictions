@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def scrape_html_race(race_id_list):

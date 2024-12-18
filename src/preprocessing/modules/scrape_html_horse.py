@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def scrape_html_horse(horse_id_list, skip: bool = True):

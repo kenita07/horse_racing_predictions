@@ -1,5 +1,5 @@
-from modules.config import *
-from modules.id_names import id_names
+from src.config import *
+from src.preprocessing.modules.id_names import id_names
 
 
 def create_race_result(html_paths):
@@ -67,5 +67,5 @@ def create_race_result(html_paths):
     concat_df.index.name = COLUMN_RACE_ID
     concat_df.columns = concat_df.columns.str.replace(" ", "")
     SAVE_DIR.mkdir(parents=True, exist_ok=True)
-    concat_df.to_csv(SAVE_DIR / RAWDF_RACE_FILE_NAME, sep="\t")
+    concat_df.to_csv(SAVE_DIR / RAWDF_RACE_FILE_NAME_CSV, sep="\t")
     return concat_df

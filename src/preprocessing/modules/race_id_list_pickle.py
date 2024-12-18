@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def race_id_lsit_pickle():

@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def scrape_race_id_list(kaisai_date_list: list[str]) -> list[str]:

@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def scrape_kaisai_date(from_: str, to_: str) -> list:

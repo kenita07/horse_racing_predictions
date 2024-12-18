@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def create_race_info():
@@ -81,7 +81,7 @@ def create_race_info_transformed():
 
     この関数は、`SAVE_DIR / RACE_INFO_CSV`からタブ区切りのCSVファイルを読み込み、
     各行について必要な情報を抽出し、新しい形式で変換してから
-    `SAVE_DIR / RACE_INFO_TRANSFORMED`に保存する。
+    `SAVE_DIR / race_info_TRANSFORMED`に保存する。
 
     変換の内容:
     - `info1` と `info2` 列のデータを辞書またはリストに変換
@@ -144,16 +144,16 @@ def create_race_info_transformed():
 
     # 保存処理
     SAVE_DIR.mkdir(parents=True, exist_ok=True)
-    result_df.to_csv(SAVE_DIR / RACE_INFO_TRANSFORMED, sep="\t", index=False)
+    result_df.to_csv(SAVE_DIR / RACE_INFO_PREPROCESSING_CSV, sep="\t", index=False)
 
 
 def create_race_info_preprocessing():
     """
     レース情報を前処理して、指定のディレクトリに保存する。
 
-    この関数は、`SAVE_DIR / RACE_INFO_TRANSFORMED`からタブ区切りのCSVファイルを読み込み、
+    この関数は、`SAVE_DIR / race_info_TRANSFORMED`からタブ区切りのCSVファイルを読み込み、
     各カラムに対して定義されたマッピングを適用して前処理を行う。
-    処理後、必要なカラムだけを抽出し、`SAVE_DIR / RACE_INFO_PREPROCESSING`に再保存する。
+    処理後、必要なカラムだけを抽出し、`SAVE_DIR / RACE_INFO_PREPROCESSING_CSV`に再保存する。
 
     前処理の内容:
     - レースの日付を日時型に変換
@@ -163,7 +163,7 @@ def create_race_info_preprocessing():
     返り値:
         なし
     """
-    df = pd.read_csv(SAVE_DIR / RACE_INFO_TRANSFORMED, sep="\t")
+    df = pd.read_csv(SAVE_DIR / RACE_INFO_PREPROCESSING_CSV, sep="\t")
     df[COLUMN_DATE] = pd.to_datetime(df[COLUMN_DATE])
     df[COLUMN_RACE_TYPE] = df[COLUMN_RACE_TYPE].map(
         mapping_loader.get_race_type_mapping()
@@ -195,4 +195,4 @@ def create_race_info_preprocessing():
         ]
     ]
     SAVE_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_csv(SAVE_DIR / RACE_INFO_PREPROCESSING, sep="\t", index=False)
+    df.to_csv(SAVE_DIR / RACE_INFO_PREPROCESSING_CSV, sep="\t", index=False)

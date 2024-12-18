@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def out_results_pickle(results_df):

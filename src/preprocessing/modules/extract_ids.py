@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def extract_ids(soup, regex_pattern, id_length):

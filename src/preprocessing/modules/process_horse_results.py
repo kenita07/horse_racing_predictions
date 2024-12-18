@@ -1,4 +1,4 @@
-from modules.config import *
+from src.config import *
 
 
 def process_horse_results():
@@ -10,7 +10,7 @@ def process_horse_results():
     Returns:
         None
     """
-    df = pd.read_csv(SAVE_DIR / RAWDF_HORSE_FILE_NAME, sep="\t")
+    df = pd.read_csv(SAVE_DIR / RAWDF_HORSE_FILE_NAME_CSV, sep="\t")
     df[COLUMN_RANK] = pd.to_numeric(df["着順"], errors="coerce")
     df.dropna(subset=[COLUMN_RANK], inplace=True)
     df[COLUMN_DATE] = pd.to_datetime(df["日付"])
@@ -45,4 +45,4 @@ def process_horse_results():
         ]
     ]
     SAVE_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_csv(SAVE_DIR / RAWDF_PREPROCESSED_HORSE_FILE_NAME, sep="\t", index=False)
+    df.to_csv(SAVE_DIR / RAWDF_PREPROCESSED_HORSE_FILE_NAME_CSV, sep="\t", index=False)

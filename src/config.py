@@ -18,13 +18,13 @@ from urllib.error import HTTPError
 from selenium.webdriver.common.by import By
 
 # スクリプトの1つ上の階層をsys.pathに追加
-sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
-sys.path.append(str(Path(__file__).resolve().parent))
+# sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
+# sys.path.append(str(Path(__file__).resolve().parent))
 
 # 自作モジュール
-from logger_setting import setup_logger
-from chrome_setting import get_chrome_driver
-from mapping import MappingLoader
+from src.logger_setting import setup_logger
+from src.chrome_setting import get_chrome_driver
+from src.mapping import MappingLoader
 
 # pandas warning非表示設定
 warnings.simplefilter("ignore", FutureWarning)
@@ -46,16 +46,24 @@ RACE_ID_LIST_URL_TEMPLATE = (
 RACE_URL_TEMPLATE = "https://db.netkeiba.com/race/{race_id}"
 HORSE_URL_TEMPLATE = "https://db.netkeiba.com/horse/{horse_id}"
 
-# スクレイピング関連定数
+# ディレクトリ
 HTML_RACE_DIR = HTML_DIR / "race"
 HTML_HORSE_DIR = HTML_DIR / "horse"
-RAWDF_RACE_FILE_NAME = "race_results.csv"
-RAWDF_HORSE_FILE_NAME = "horse_results.csv"
-RAWDF_PREPROCESSED_RACE_FILE_NAME = "preprocessed_race_results.csv"
-RAWDF_PREPROCESSED_HORSE_FILE_NAME = "preprocessed_horse_results.csv"
+
+
+# ファイル名
+RAWDF_RACE_FILE_NAME_CSV = "race_results.csv"
+RAWDF_HORSE_FILE_NAME_CSV = "horse_results.csv"
+RAWDF_PREPROCESSED_RACE_FILE_NAME_CSV = "preprocessed_race_results.csv"
+RAWDF_PREPROCESSED_HORSE_FILE_NAME_CSV = "preprocessed_horse_results.csv"
+RACE_INFO_CSV = "race_info.csv"
+RACE_INFO_PREPROCESSING_CSV = "race_info_preprocessing.csv"
+FEATURES_CSV = "features.csv"
+
+# スクレイピング設定
 LOOP_WAIT_SECONDS = 3  # スクレイピング間の待機時間
 FLOM_DATE = "2024-01"  # スクレイピング開始年月
-TO_DATE = "2024-11"  # スクレイピング終了年月
+TO_DATE = "2024-12"  # スクレイピング終了年月
 
 # カラム列名
 COLUMN_RACE_ID = "race_id"
@@ -99,15 +107,19 @@ PROCESS_MESSAGE = ":process start"
 RACE_ID_PICKLE = "race_id_from202401_to202411.pickle"
 RESULT_PICKLE = "result_data_from202401_to202411.pickle"
 
+# 直近レースの着順と賞金の平均を集計用ナンバー
+
+RANK_0003_RACE = 3
+RANK_0005_RACE = 5
+RANK_0010_RACE = 10
+RANK_1000_RACE = 1000
+
 # エラーメッセージ
 ERROR_NO_VALID_TABLE = "HTMLドキュメントに有効な<table>要素が見つかりませんでした。"
 ERROR_UNEXPECTED = "予期せぬエラーが発生しました。"
 ERROR_INVALID_URL = "無効なURLが指定されました。"
 ERROR_TITLE = "対象外のタイトルです。"
 
-RACE_INFO_CSV = "race_info.csv"
-RACE_INFO_TRANSFORMED = "race_info_transformed.csv"
-RACE_INFO_PREPROCESSING = "race_info_preprocessing.csv"
 
 # 正規表現パターン
 RACE_TYPE_PATTERN = r"(芝|ダ|障)"
@@ -119,5 +131,7 @@ PLACE_DD_PATTERN = r"([^\d]+)(\d{1})?"
 DATE_PATTERN = r"\d{4}年\d{1,2}月\d{1,2}日"
 
 # mappingファイル読み込み
-mapping_loader = MappingLoader(mapping_dir=Path(__file__).parent.parent / "mapping")
+mapping_loader = MappingLoader(
+    mapping_dir=Path(__file__).parent / "preprocessing" / "mapping"
+)
 mapping_loader.load_all_mappings()

@@ -1,5 +1,5 @@
-from modules.config import *
-from modules.extract_ids import extract_ids
+from src.config import *
+from src.preprocessing.modules.extract_ids import extract_ids
 
 
 def id_names(soup, df):

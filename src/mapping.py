@@ -83,8 +83,8 @@ class MappingLoader:
         return self.PLACE_MAPPING
 
 
-# 使用
-# mapping_dir = Path(__file__).parent.parent / "mapping"
+# # 使用
+# mapping_dir = Path(__file__).parent / "preprocessing" / "mapping"
 # print(mapping_dir)
 # mapping_loader = MappingLoader(mapping_dir=mapping_dir)
 # mapping_loader.load_all_mappings()

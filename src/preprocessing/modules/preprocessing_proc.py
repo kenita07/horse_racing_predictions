@@ -1,6 +1,6 @@
-from modules.config import *
-from modules.process_race_results import process_race_results
-from modules.process_horse_results import process_horse_results
+from src.config import *
+from src.preprocessing.modules.process_race_results import process_race_results
+from src.preprocessing.modules.process_horse_results import process_horse_results
 
 
 def preprocessing():

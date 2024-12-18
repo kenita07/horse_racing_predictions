@@ -1,10 +1,10 @@
-from modules.config import *
-from modules.scrape_kaisai_date import scrape_kaisai_date
-from modules.scrape_race_id_list import scrape_race_id_list
-from modules.scrape_html_race import scrape_html_race
-from modules.create_race_result import create_race_result
-from modules.scrape_html_horse import scrape_html_horse
-from modules.create_horse_result import create_horse_result
+from src.config import *
+from src.preprocessing.modules.scrape_kaisai_date import scrape_kaisai_date
+from src.preprocessing.modules.scrape_race_id_list import scrape_race_id_list
+from src.preprocessing.modules.scrape_html_race import scrape_html_race
+from src.preprocessing.modules.create_race_result import create_race_result
+from src.preprocessing.modules.scrape_html_horse import scrape_html_horse
+from src.preprocessing.modules.create_horse_result import create_horse_result
 
 
 def get_raw_data():
@@ -30,7 +30,7 @@ def get_raw_data():
     # レース結果から馬ID一覧を抽出
     horse_id_list = race_results[COLUMN_HORSE_ID].unique()
     # 馬IDに基づいてHTMLデータをスクレイピング
-    scrape_html_horse(horse_id_list)
+    scrape_html_horse(horse_id_list, False)
     # 取得した馬HTMLデータのパス一覧を作成
     html_paths_horse = list(Path(HTML_HORSE_DIR).glob("*"))
     # 馬結果データを生成
